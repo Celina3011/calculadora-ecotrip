@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora EcoTrip</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 EcoTrip Calculator</h1>
+            <p>Simule o impacto ambiental da sua viagem e faça escolhas mais sustentáveis.</p>
+        </header>
+
+        <main>
+            <form id="ecoForm">
+                <div class="form-group">
+                    <label for="distance">Distância da Viagem (em km):</label>
+                    <input type="number" id="distance" placeholder="Ex: 150" required min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="transport">Meio de Transporte:</label>
+                    <select id="transport" required>
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="car-petrol">Carro a Gasolina</option>
+                        <option value="car-electric">Carro Elétrico</option>
+                        <option value="bus">Ônibus Intermunicipal</option>
+                        <option value="train">Trem / Metrô</option>
+                        <option value="plane">Avião</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="profile">Perfil do Trajeto / Trânsito:</label>
+                    <select id="profile" required>
+                        <option value="1.0">Normal / Misto</option>
+                        <option value="1.2">Urbano (Trânsito Intenso)</option>
+                        <option value="0.9">Rodovia (Fluxo Livre)</option>
+                    </select>
+                </div>
+
+                <button type="submit">Calcular Impacto</button>
+            </form>
+
+            <section id="result" class="result-box hidden">
+                <h2>Resultado da Simulação</h2>
+                <div class="metrics">
+                    <p>💨 Emissão de CO₂: <strong id="co2Result">0</strong> kg</p>
+                    <p>🌳 Árvores necessárias para compensar: <strong id="treesResult">0</strong> árvores por ano</p>
+                </div>
+                <div id="ecoTip" class="eco-tip"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Desenvolvido para o projeto DIO - Calculadora EcoTrip</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
