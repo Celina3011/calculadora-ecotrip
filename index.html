@@ -9,15 +9,20 @@
 <body>
     <div class="container">
         <header>
-            <h1>🌱 EcoTrip Calculator</h1>
+            <h1>🌱 Calculadora EcoTrip</h1>
             <p>Simule o impacto ambiental da sua viagem e faça escolhas mais sustentáveis.</p>
         </header>
 
         <main>
-            <form id="ecoForm">
+            <form id="ecoForm" novalidate>
                 <div class="form-group">
                     <label for="distance">Distância da Viagem (em km):</label>
-                    <input type="number" id="distance" placeholder="Ex: 150" required min="1">
+                    <input type="number" id="distance" placeholder="Ex: 150" required min="0.1" step="any">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="roundTrip">
+                    <label for="roundTrip">Viagem de ida e volta (dobrar distância)</label>
                 </div>
 
                 <div class="form-group">
@@ -25,32 +30,48 @@
                     <select id="transport" required>
                         <option value="" disabled selected>Selecione uma opção</option>
                         <option value="car-petrol">Carro a Gasolina</option>
+                        <option value="car-ethanol">Carro Flex (Etanol)</option>
                         <option value="car-electric">Carro Elétrico</option>
+                        <option value="motorcycle">Moto</option>
                         <option value="bus">Ônibus Intermunicipal</option>
                         <option value="train">Trem / Metrô</option>
                         <option value="plane">Avião</option>
+                        <option value="bike-walk">Bicicleta / A pé</option>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div id="passengersGroup" class="form-group hidden">
+                    <label for="passengers">Número de Passageiros no Veículo:</label>
+                    <input type="number" id="passengers" value="1" min="1" max="7" step="1">
+                    <small class="field-hint">Divide a emissão total do veículo entre os ocupantes (carona).</small>
+                </div>
+
+                <div id="profileGroup" class="form-group">
                     <label for="profile">Perfil do Trajeto / Trânsito:</label>
                     <select id="profile" required>
                         <option value="1.0">Normal / Misto</option>
                         <option value="1.2">Urbano (Trânsito Intenso)</option>
                         <option value="0.9">Rodovia (Fluxo Livre)</option>
                     </select>
+                    <small id="profileHint" class="field-hint hidden">Não se aplica ao meio de transporte selecionado.</small>
                 </div>
 
-                <button type="submit">Calcular Impacto</button>
+                <div id="errorMessage" class="error-box hidden" role="alert"></div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Calcular Impacto</button>
+                    <button type="button" id="resetBtn" class="btn-secondary">Limpar</button>
+                </div>
             </form>
 
-            <section id="result" class="result-box hidden">
+            <section id="result" class="result-box hidden" aria-live="polite">
                 <h2>Resultado da Simulação</h2>
                 <div class="metrics">
-                    <p>💨 Emissão de CO₂: <strong id="co2Result">0</strong> kg</p>
-                    <p>🌳 Árvores necessárias para compensar: <strong id="treesResult">0</strong> árvores por ano</p>
+                    <p>💨 Emissão de CO₂: <strong id="co2Result">0,00</strong> kg</p>
+                    <p id="treesLine">🌳 Árvores necessárias para compensar: <strong id="treesResult">0 árvores</strong> por ano</p>
                 </div>
                 <div id="ecoTip" class="eco-tip"></div>
+                <div id="comparison" class="comparison-section"></div>
             </section>
         </main>
 
